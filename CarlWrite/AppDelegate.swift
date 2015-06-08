@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  CarlWrite
+//  WritingApp
 //
-//  Created by Quang Tran Dang on 08.06.15.
+//  Created by Quang Tran Dang on 07.05.15.
 //  Copyright (c) 2015 Quang Tran. All rights reserved.
 //
 
