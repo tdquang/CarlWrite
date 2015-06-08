@@ -1,29 +1,46 @@
 //
 //  ShowDetailsController.swift
+//  This view contains information specific to an appointment.
 //  WritingApp
 //
-//  Created by Quang Tran Dang on 31.05.15.
+//  Quang Tran
 //  Copyright (c) 2015 Quang Tran. All rights reserved.
 //
 
 import UIKit
 
 class ShowDetailsController: UIViewController {
-
+    let sharedData = dataFile.sharedInstance
     var appointmentDetails = [String]()
     let formFields = dataFile().returnFormFields()
+    
+
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         // Do any additional setup after loading the view.
     }
-
-    @IBOutlet weak var tableView: UITableView!
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // Deleting an appointment from the list if the user decides to cancel it
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "cancel" {
+            for var index = 0; index < sharedData.listOfAppointments.count; ++index {
+                if (sharedData.listOfAppointments[index] == appointmentDetails){
+                    sharedData.listOfAppointments.removeAtIndex(index)
+                }
+            }
+        }
+    }
+    
+    // Below are the functions for tableview
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.appointmentDetails.count

@@ -1,18 +1,35 @@
 //
 //  dataFile.swift
+//  This file contains all the information from the writing center that the app uses. 
 //  WrittingApp
 //
-//  Created by Quang Tran Dang on 28.05.15.
+//  Quang Tran & Anmol Raina
 //  Copyright (c) 2015 Quang Tran. All rights reserved.
 //
 
+
+
 import UIKit
 
-class dataFile: NSData {
+class dataFile {
+    // The code below allows changing this file
+    class var sharedInstance: dataFile {
+        struct Static {
+            static var instance: dataFile?
+            static var token: dispatch_once_t = 0
+        }
+        
+        dispatch_once(&Static.token) {
+            Static.instance = dataFile()
+        }
+        
+        return Static.instance!
+    }
     
+    // Harcoded date. In the future these variables will use the GET command to get data from the Carleton Server
     var listOfAppointments = [[String]]()
     var tutorArray = ["Any Tutor", "Anna", "Dave", "Jeff", "Michael", "Sam"]
-    var formFields = ["Date", "Course", "Instructor", "Topic", "Type", "State", "Length"]
+    var formFields = ["Date", "Course", "Instructor", "Topic", "Type", "State", "Due Date", "Class year", "Major", "First Visit?", "Copy for Prof?"]
     var paperLengthArray = ["1-2", "3-5", "6-10","11-20","20+"]
     var currentStateArray = ["Brainstorming", "First Draft", "Second Draft", "Final Draft"]
     var paperTypeArray = ["Essay", "Comps", "Resume", "Portfolio", "Application", "Other"]

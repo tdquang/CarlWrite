@@ -1,8 +1,9 @@
 //
 //  AppointmentListController.swift
+//  This view contains the list of all appointments a user has. 
 //  WritingApp
 //
-//  Created by Quang Tran Dang on 08.05.15.
+//  Quang Tran & Anmol Raina
 //  Copyright (c) 2015 Quang Tran. All rights reserved.
 //
 
@@ -14,7 +15,7 @@ class AppointmentListController: UIViewController, UITableViewDelegate, UITableV
 
     @IBOutlet weak var tableView: UITableView!
     
-    let appointments = dataFile().listOfAppointments
+    let sharedData = dataFile.sharedInstance
     var detailsToShow = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,7 @@ class AppointmentListController: UIViewController, UITableViewDelegate, UITableV
         addButton.layer.cornerRadius = 3
         addButton.layer.borderWidth = 1
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        for item in appointments{
+        for item in sharedData.listOfAppointments{
             println(item[0])
         }
     }
@@ -36,13 +37,14 @@ class AppointmentListController: UIViewController, UITableViewDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
+    // Table view functions
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.appointments.count;
+        return sharedData.listOfAppointments.count;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
-        cell.textLabel?.text = self.appointments[indexPath.row][0]
+        cell.textLabel?.text = sharedData.listOfAppointments[indexPath.row][0]
         cell.contentView.backgroundColor = UIColor.clearColor()
         cell.backgroundColor = UIColor.clearColor()
         return cell
@@ -50,7 +52,7 @@ class AppointmentListController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("You selected cell #\(indexPath.row)!")
-        detailsToShow = appointments[indexPath.row]
+        detailsToShow = sharedData.listOfAppointments[indexPath.row]
         var selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
         selectedCell.contentView.backgroundColor = UIColor.clearColor()
         self.performSegueWithIdentifier("showDetails", sender: nil)
@@ -58,6 +60,7 @@ class AppointmentListController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
+    // prepareForSegue function to open another view controller that contains all the details
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetails" {
             if let destinationVC = segue.destinationViewController as? ShowDetailsController{

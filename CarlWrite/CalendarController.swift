@@ -1,8 +1,12 @@
 //
 //  CalendarController.swift
+//  Contorller responsible for the calendar
+//  NOTE: we couldn't implement the feature where changign tutor in the textfield would also change the dates circled in blue. 
+//  The reason is that the library we used for the calendar currently does not support that function for 8.3. 
+//  Therefore, changing the tutor in the text field does not do anything at the moment.
 //  WritingApp
 //
-//  Created by Quang Tran Dang on 19.05.15.
+//  Quang Tran & Anmol Raina
 //  Copyright (c) 2015 Quang Tran. All rights reserved.
 //
 
@@ -41,6 +45,7 @@ class CalendarController: UIViewController, UIPickerViewDelegate {
         menuView.commitMenuViewUpdate()
     }
     
+    // prepareForSegue function that passes the date to the form controller
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showForm" {
             if let destinationVC = segue.destinationViewController as? FormViewController{
@@ -53,6 +58,7 @@ class CalendarController: UIViewController, UIPickerViewDelegate {
         return false
     }
     
+    // Functions to create a pop-up picker
     @IBAction func itemPicker(sender: UITextField) {
         ActionSheetStringPicker.showPickerWithTitle("Pick a Tutor", rows: tutor, initialSelection: 1, doneBlock: {
             picker, value, index in
@@ -78,6 +84,7 @@ class CalendarController: UIViewController, UIPickerViewDelegate {
 
 extension CalendarController: CVCalendarViewDelegate
 {
+    // Bellow is the code to create blue circles given particular days
     func supplementaryView(viewOnDayView dayView: DayView) -> UIView
     {
         let π = M_PI
@@ -116,6 +123,7 @@ extension CalendarController: CVCalendarViewDelegate
         return newView
     }
     
+    // Right now the controller circles random dates
     func supplementaryView(shouldDisplayOnDayView dayView: DayView) -> Bool
     {
         let workingDays = dataFile().returnTutorDays(tutorField.text)
@@ -124,11 +132,6 @@ extension CalendarController: CVCalendarViewDelegate
             return true
         }
         return false
-        /*if (contains(workingDays,dayView.weekdayIndex))
-        {
-            return true
-        }
-        return false*/
     }
 }
 
@@ -146,10 +149,9 @@ extension CalendarController: CVCalendarViewDelegate {
         return shouldShowDaysOut
     }
     
+    // This function gets called when a user clicks on a date. Creates a picker, and then if the user chooses a date, go to a next controller
     func didSelectDayView(dayView: CVCalendarDayView) {
         let date = dayView.date
-        //println(dayView.weekdayIndex)
-        //println("\(calendarView.presentedDate.commonDescription) is selected!")
         timePicker(dayView)
     }
     
@@ -223,24 +225,6 @@ extension CalendarController {
         calendarView.commitCalendarViewUpdate()
     }
     
-    /// Switch to WeekView mode.
-    @IBAction func toWeekView(sender: AnyObject) {
-        calendarView.changeMode(.WeekView)
-    }
-    
-    /// Switch to MonthView mode.
-    @IBAction func toMonthView(sender: AnyObject) {
-        calendarView.changeMode(.MonthView)
-    }
-    
-    @IBAction func loadPrevious(sender: AnyObject) {
-        calendarView.loadPreviousView()
-    }
-    
-    
-    @IBAction func loadNext(sender: AnyObject) {
-        calendarView.loadNextView()
-    }
 }
 
 // MARK: - Convenience API Demo

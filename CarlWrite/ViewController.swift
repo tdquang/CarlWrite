@@ -1,14 +1,17 @@
 //
 //  ViewController.swift
+//  Initial login screen
 //  WritingApp
 //
-//  Created by Quang Tran Dang on 07.05.15.
+//  Quang Tran & Anmol Raina
 //  Copyright (c) 2015 Quang Tran. All rights reserved.
 //
 
 import UIKit
 
+
 class ViewController: UIViewController {
+    // username and password textfields
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     
@@ -24,7 +27,8 @@ class ViewController: UIViewController {
     }
 
     
-    
+    // IBAction function gets called on loging button
+    // In the future, this app will call the Carleton Server to confirm usernam and password. Right now the app lets you login as long as the password is 123
     @IBAction func login(sender: AnyObject) {
         var user:NSString = username.text as NSString
         var pass:NSString = password.text as NSString
