@@ -26,7 +26,7 @@ class AppointmentListController: UIViewController, UITableViewDelegate, UITableV
         addButton.layer.borderWidth = 1
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         for item in sharedData.listOfAppointments{
-            println(item[0])
+            print(item[0])
         }
     }
 
@@ -43,7 +43,7 @@ class AppointmentListController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
+        let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell")!
         cell.textLabel?.text = sharedData.listOfAppointments[indexPath.row][0]
         cell.contentView.backgroundColor = UIColor.clearColor()
         cell.backgroundColor = UIColor.clearColor()
@@ -51,9 +51,9 @@ class AppointmentListController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("You selected cell #\(indexPath.row)!")
+        print("You selected cell #\(indexPath.row)!")
         detailsToShow = sharedData.listOfAppointments[indexPath.row]
-        var selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+        let selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
         selectedCell.contentView.backgroundColor = UIColor.clearColor()
         self.performSegueWithIdentifier("showDetails", sender: nil)
         selectedCell.backgroundColor = UIColor.clearColor()

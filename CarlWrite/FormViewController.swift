@@ -70,9 +70,9 @@ class FormViewController: UIViewController {
     // prepareForSegue function to submit the form and add it to the list of appointments
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "submitForm" {
-            sharedData.addAppointment([dateToDisplay, course.text, instructor.text, topic.text, paperType.text, currentState.text, classYear.text, major.text, firstVisit.text, copyForProf.text])
+            sharedData.addAppointment([dateToDisplay, course.text!, instructor.text!, topic.text!, paperType.text!, currentState.text!, classYear.text!, major.text!, firstVisit.text!, copyForProf.text!])
         }
-        print(dataFile().listOfAppointments.count)
+        print(dataFile().listOfAppointments.count, terminator: "")
         
     }
     
@@ -94,10 +94,10 @@ class FormViewController: UIViewController {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // goalsTable is a table view that allows the user to check several items
         if(tableView == goalsTable){
-            let cell = self.goalsTable.dequeueReusableCellWithIdentifier(textCellIdentifier1, forIndexPath: indexPath) as! UITableViewCell
+            let cell = self.goalsTable.dequeueReusableCellWithIdentifier(textCellIdentifier1, forIndexPath: indexPath) 
             let row = indexPath.row
             cell.textLabel?.text = goalsTableArray[row]
-            if (contains(self.selectedRow, row)){
+            if (self.selectedRow.contains(row)){
                 cell.accessoryType = UITableViewCellAccessoryType.Checkmark
             }
             else{
@@ -107,7 +107,7 @@ class FormViewController: UIViewController {
         }
         // visitSource Table allows the user to select only 1 item
         else {
-            let cell = self.visitSourceTable.dequeueReusableCellWithIdentifier(textCellIdentifier2, forIndexPath: indexPath) as! UITableViewCell
+            let cell = self.visitSourceTable.dequeueReusableCellWithIdentifier(textCellIdentifier2, forIndexPath: indexPath) 
             let row = indexPath.row
             cell.textLabel?.text = visitSourceTableArray[row]
             if (self.selectedSource == row){
@@ -127,7 +127,7 @@ class FormViewController: UIViewController {
             goalsTable.deselectRowAtIndexPath(indexPath, animated: true)
             let row = indexPath.row
             holdDataArray.append(goalsTableArray[row])
-            if (contains(self.selectedRow, row)){
+            if (self.selectedRow.contains(row)){
                 for var index = 0; index < self.selectedRow.count; ++index{
                     if (self.selectedRow[index] == row){
                         self.selectedRow.removeAtIndex(index)

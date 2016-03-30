@@ -314,6 +314,8 @@
 		A4D46B6F1B26326F009144B2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0720;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Quang Tran";
 				TargetAttributes = {

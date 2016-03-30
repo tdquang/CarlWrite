@@ -30,12 +30,12 @@ class ViewController: UIViewController {
     // IBAction function gets called on loging button
     // In the future, this app will call the Carleton Server to confirm usernam and password. Right now the app lets you login as long as the password is 123
     @IBAction func login(sender: AnyObject) {
-        var user:NSString = username.text as NSString
-        var pass:NSString = password.text as NSString
-        var confirm_password = "123"
+        let user:NSString = username.text! as NSString
+        let pass:NSString = password.text! as NSString
+        let confirm_password = "123"
         if ( user.isEqualToString("") || pass.isEqualToString("") ) {
             
-            var alertView:UIAlertView = UIAlertView()
+            let alertView:UIAlertView = UIAlertView()
             alertView.title = "Sign Up Failed!"
             alertView.message = "Please enter Username and Password"
             alertView.delegate = self
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
             alertView.show()
         } else if ( !pass.isEqual(confirm_password) ) {
             
-            var alertView:UIAlertView = UIAlertView()
+            let alertView:UIAlertView = UIAlertView()
             alertView.title = "Sign Up Failed!"
             alertView.message = "Passwords doesn't Match"
             alertView.delegate = self

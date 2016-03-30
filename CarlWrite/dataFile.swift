@@ -50,7 +50,7 @@ class dataFile {
         return []
     }
     
-    func returnAppointmentTimes(CVCalendarDayView) -> [String]{
+    func returnAppointmentTimes(_: CVCalendarDayView) -> [String]{
         return ["9:00", "9:20", "10:00", "10:20", "11:00", "11:20", "12:00"]
     }
     func returnListOfTutors() -> [String]{
